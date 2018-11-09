@@ -1,0 +1,89 @@
+#Producing a script that is capable of helping the user to
+#choose which test is suitable for their statistics
+from sys import exit
+def start():
+    print("\t** Welcome to the statistical test chooser**")
+    print("""This will help you to choose which test you will need to run in order to analyse the data you have collected.""")
+    print("\t How many groups are you comparing between?")
+
+    compare_groups = input("> ")
+    print(f"You have {compare_groups} groups to be compared")
+    if compare_groups == '2':
+        two_group()
+    else:
+        more_group()
+
+def two_group():
+    print("Are the data sets paired or unpaired?")
+    datapair2groups = input("> ")
+    if datapair2groups == 'unpaired':
+        print(f"You have 2 groups which are {datapair2groups}")
+        para_1()
+
+    elif datapair2groups == 'paired':
+        print(f"You have 2 groups which are {datapair2groups}")
+        para_2()
+
+def para_1():
+    print("\tIs the data parametric or non-parametric")
+    parametric = input("> ")
+    if parametric == 'parametric':
+            print("You will need to run an unpaired t-test")
+            print("\tCan you assume equal variances?")
+            equalvar = input("> ")
+
+            if equalvar == 'yes' or 'y':
+                print("*Run a student t-test*")
+            else:
+                print("*Run a Welch t-test*")
+    else:
+        print("Your data is non-parametric")
+        print("*You need to run a Mann-Whitney U test*")
+
+def para_2():
+    print("\tIs the data parametric or non-parametric?")
+    parametric = input("> ")
+    if parametric == 'parametric':
+        print("*You will need to run a paired t-test*")
+    else:
+        print(f"*Your data is {parametric}, you will need to run a Wilcoxon signed rank test*")
+
+
+def more_group():
+    print("\tIs the data paired or unpaired?")
+    pair = input("> ")
+    if pair == 'paired':
+        print("\tIs the data parametric or non-parametric?")
+        parame = input("> ")
+        if parame == 'parametric':
+            print("*Run a One-way repeated measure ANOVA*")
+        else:
+            print("*Run a Friedman test*")
+            print("\tIs the P value < 0.05?")
+            p_value = input("> ")
+            if p_value == 'yes':
+                multicomp()
+    else:
+        print("\tIs the data parametric or non-parametric?")
+        metric = input("> ")
+        if metric == 'parametric':
+            equalvar()
+        else:
+            krus()
+
+def equalvar():
+    print("\tCan you assume equal variances?")
+    equ = input("> ")
+    if equ == 'yes':
+        print("*You need to run a One-way ANOVA*")
+    elif equ == 'no':
+        krus()
+
+def krus():
+    print("*You will need to run a Kruskall-Wallis test*")
+
+def multicomp():
+    print("*Your P value is < 0.05*")
+    print("*You will need to run multiple comparison post tests*")
+
+start()
