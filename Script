@@ -3,7 +3,7 @@
 from sys import exit
 def start():
     print("\t** Welcome to the statistical test chooser**")
-    print("""This will help you to choose which test you will need to run in order to analyse the data you have collected.""")
+    print("This will help you to choose which test you will need to run in order to analyse the data you have collected.")
     print("\t How many groups are you comparing between?")
 
     compare_groups = input("> ")
